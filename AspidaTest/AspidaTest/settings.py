@@ -76,11 +76,12 @@ WSGI_APPLICATION = 'AspidaTest.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', #motor de la bd (no soporta las bds no relacionales)
-        'NAME': BASE_DIR / 'db.sqlite3', #nombre de la bd
-        #"USER":
-        #"PASSWORD":
-        #"HOST":
+        'ENGINE': 'django.db.backends.mysql', #motor de la bd (no soporta las bds no relacionales)
+        'NAME': 'test', #nombre de la bd
+        "USER": 'root',
+        "PASSWORD": '',
+        "HOST": 'localhost',
+        "PORT" : '3306'
     }
 }
 

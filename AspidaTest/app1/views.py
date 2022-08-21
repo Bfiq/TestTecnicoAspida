@@ -20,23 +20,28 @@ def users(request):
     })
 
 def registerFormUser(request):
-    try:
-        name = request.POST["names"]
-        lastname = request.POST["lastname"]
-        id = request.POST["id"]
-        password = request.POST["password"]
-        select = request.POST["select"]
-        
-    except(KeyError, Users.DoesNotExist):
-        return render(request, "app1/register.html",{
-            "error_message": "No has llenado todos los campos"
-        })
+    if request.method == 'POST':
+        try:
+            name = request.POST["names"]
+            lastname = request.POST["lastname"]
+            id = request.POST["id"]
+            password = request.POST["password"]
+            select = request.POST["select"]
+            
+        except(KeyError, Users.DoesNotExist):
+            return render(request, "app1/register.html",{
+                "error_message": "No has llenado todos los campos"
+            })
+        else:
+            brand= get_object_or_404(Brands, pk=select)
+            user = Users(name=name,lastName=lastname,document=id,password=password,brand_id=brand)
+            user.save()
+            print(user)
+            return HttpResponseRedirect(reverse("app1:index"))
     else:
-        brand= get_object_or_404(Brands, pk=select)
-        user = Users(name=name,lastName=lastname,document=id,password=password,brand_id=brand)
-        user.save()
-        print(user)
-        return HttpResponseRedirect(reverse("app1:index"))
+        return render(request, "app1/register.html",{
+                "error_message_http": "Ha ocurrido un error"
+            })
 
 def login():
     return HTTPResponse("hola")
