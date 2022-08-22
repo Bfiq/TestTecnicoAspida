@@ -2,8 +2,6 @@ from contextlib import redirect_stderr
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Users, Brands
 from django.contrib.auth.models import User
-#from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
 from .forms import formRegister
 
 def index(request):
@@ -35,3 +33,6 @@ def users(request):
     return render(request, "app1/users.html", {
         "list_users": list_users
     })
+
+def modelbd(request):
+    return render(request, "app1/modelbd.html")

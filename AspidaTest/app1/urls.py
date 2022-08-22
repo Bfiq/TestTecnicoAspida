@@ -9,9 +9,9 @@ from . import views
 
 app_name = "app1"
 urlpatterns = [
-    #path("", views.index, name="index"),
     path("users", views.users, name="users"),
     path("register", views.register, name="register"),
     path("", LoginView.as_view(template_name='app1/login.html'), name="login"),
-    path("logout", LogoutView.as_view(template_name='app1/index.html'), name="logout")
+    path("logout", LogoutView.as_view(template_name='app1/index.html'), name="logout"),
+    path("modelbd", views.modelbd, name="modelbd"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
