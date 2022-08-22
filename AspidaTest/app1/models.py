@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Brands(models.Model):
     name = models.CharField(max_length=80)  #tipo de datos de modelos en este caso "Varchar"
@@ -7,12 +8,9 @@ class Brands(models.Model):
         return self.name
 
 class Users(models.Model):
-    name = models.CharField(max_length=50)
-    lastName = models.CharField(max_length=50)
-    document = models.CharField(max_length=20)
-    password = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     brand_id = models.ForeignKey(Brands, on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username

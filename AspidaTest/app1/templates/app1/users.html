@@ -13,7 +13,6 @@
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
-                                <td>id</td>
                                 <td>Nombres</td>
                                 <td>Apellidos</td>
                                 <td>identificación</td>
@@ -24,10 +23,9 @@
                         <tbody>
                             {% for user in list_users %}
                             <tr>
-                                <td>{{user.id}}</td>
-                                <td>{{user.name}}</td>
-                                <td>{{user.lastName}}</td>
-                                <td>{{user.document}}</td>
+                                <td>{{user.user.first_name}}</td>
+                                <td>{{user.user.last_name}}</td>
+                                <td>{{user.user.username}}</td>
                                 <td>{{user.brand_id}}</td>
                                 <td>{{user.created_at}}</td>
                             </tr>

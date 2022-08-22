@@ -1,47 +1,37 @@
-from http.client import HTTPResponse
-from django.urls import reverse
-from django.shortcuts import render, get_object_or_404
+from contextlib import redirect_stderr
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Users, Brands
-from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
+#from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from .forms import formRegister
 
 def index(request):
     return render(request, "app1/index.html")
 
 def register(request):
     list_brands = Brands.objects.all()
-    return render(request, "app1/register.html",{
-        "list_brands": list_brands
-    })
+    if request.method == 'POST':
+        form = formRegister(request.POST)
+        if form.is_valid():
+            form.save()
+            username = request.POST["username"]
+            select = request.POST["select"]
+            brand= get_object_or_404(Brands, pk=select)
+            user= get_object_or_404(User, username=username)
+            app1_user = Users(user=user,brand_id=brand)
+            app1_user.save()
+            return redirect('app1:login')
+            #return render(request, "app1/login.html")
+    else:
+        form = formRegister()
+
+    context = {'form' : form,
+               "list_brands": list_brands}
+    return render(request, 'app1/register.html', context)
 
 def users(request):
     list_users = Users.objects.all()
     return render(request, "app1/users.html", {
         "list_users": list_users
     })
-
-def registerFormUser(request):
-    if request.method == 'POST':
-        try:
-            name = request.POST["names"]
-            lastname = request.POST["lastname"]
-            id = request.POST["id"]
-            password = request.POST["password"]
-            select = request.POST["select"]
-            
-        except(KeyError, Users.DoesNotExist):
-            return render(request, "app1/register.html",{
-                "error_message": "No has llenado todos los campos"
-            })
-        else:
-            brand= get_object_or_404(Brands, pk=select)
-            user = Users(name=name,lastName=lastname,document=id,password=password,brand_id=brand)
-            user.save()
-            print(user)
-            return HttpResponseRedirect(reverse("app1:index"))
-    else:
-        return render(request, "app1/register.html",{
-                "error_message_http": "Ha ocurrido un error"
-            })
-
-def login():
-    return HTTPResponse("hola")
