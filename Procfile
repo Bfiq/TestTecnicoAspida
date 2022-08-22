@@ -1,0 +1,1 @@
+web: gunicorn AspidaTest.wsgi --log-file -
