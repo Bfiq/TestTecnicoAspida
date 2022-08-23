@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nx&fb5*+v(xxx^1y=)*8f9hyo&u#42fyywz=5=(i@g!ub+612u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [config('ALLOWED_HOST')]
 
@@ -80,13 +80,20 @@ WSGI_APPLICATION = 'AspidaTest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', #motor de la bd (no soporta las bds no relacionales)
-        'NAME': config('DB_NAME'), #nombre de la bd
+        'NAME': config('DB_NAME'), 
         "USER": config('DB_USER'),
         "PASSWORD": config('DB_PASSWORD'),
         "HOST": config('DB_HOST'),
         "PORT" : config('DB_PORT')
     }
 }
+"""
+import dj_database_url
+DATABASES= {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+}"""
 
 
 # Password validation
@@ -119,7 +126,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -133,14 +139,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #AUTH_USER_MODEL = 'usuarios.Users'
 LOGIN_REDIRECT_URL = '/users'
 
+"""
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_TMP = os.path.join(BASE_DIR, 'static')
-
-os.makedirs(STATIC_TMP, exist_ok=True)
-os.makedirs(STATIC_ROOT, exist_ok=True)
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'"""
