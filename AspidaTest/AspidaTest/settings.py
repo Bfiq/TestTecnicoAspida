@@ -50,7 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'AspidaTest.urls'
@@ -131,6 +130,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #AUTH_USER_MODEL = 'usuarios.Users'
+<<<<<<< HEAD
 LOGIN_REDIRECT_URL = '/users'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
